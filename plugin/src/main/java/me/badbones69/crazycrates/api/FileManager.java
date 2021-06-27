@@ -311,7 +311,7 @@ public class FileManager {
         
         //ENUM_NAME("fileName.yml", "fileLocation.yml"),
         //ENUM_NAME("fileName.yml", "newFileLocation.yml", "oldFileLocation.yml"),
-        CONFIG("config.yml", "config.yml", "config1.13-Up.yml", "config1.12.2-Down.yml"),
+        CONFIG("config.yml", "config.yml", "config1.13-Up.yml"),
         MESSAGES("Messages.yml", "Messages.yml"),
         LOCATIONS("Locations.yml", "Locations.yml"),
         DATA("data.yml", "data.yml");
@@ -348,9 +348,6 @@ public class FileManager {
          * @param newFileJar The location of the 1.13+ file version in the jar.
          * @param oldFileJar The location of the 1.12.2- file version in the jar.
          */
-        private Files(String fileName, String fileLocation, String newFileJar, String oldFileJar) {
-            this(fileName, fileLocation, Version.getCurrentVersion().isNewer(Version.v1_12_R1) ? newFileJar : oldFileJar);
-        }
         
         /**
          * Get the name of the file.

@@ -72,10 +72,6 @@ public class CCCommand implements CommandExecutor {
                 return true;
             } else if (args[0].equalsIgnoreCase("set1") || args[0].equalsIgnoreCase("set2")) {
                 if (!Methods.permCheck(sender, "admin")) return true;
-                if (Version.getCurrentVersion().isOlder(Version.v1_13_R2)) {
-                    sender.sendMessage(Methods.getPrefix("&cThis command only works on 1.13+. If you wish to make schematics for 1.12.2- use World Edit to do so."));
-                    return true;
-                }
                 Player player = (Player) sender;
                 int set = args[0].equalsIgnoreCase("set1") ? 1 : 2;
                 Block block = player.getTargetBlockExact(10);
@@ -118,10 +114,6 @@ public class CCCommand implements CommandExecutor {
                 //					return true;
             } else if (args[0].equalsIgnoreCase("save")) {// /cc save <file name>
                 if (!Methods.permCheck(sender, "admin")) return true;
-                if (Version.getCurrentVersion().isOlder(Version.v1_13_R2)) {
-                    sender.sendMessage(Methods.getPrefix("&cThis command only works on 1.13+. If you wish to make schematics for 1.12.2- use World Edit to do so."));
-                    return true;
-                }
                 Location[] locations = cc.getSchematicLocations().get(((Player) sender).getUniqueId());
                 if (locations != null && locations[0] != null && locations[1] != null) {
                     if (args.length >= 2) {

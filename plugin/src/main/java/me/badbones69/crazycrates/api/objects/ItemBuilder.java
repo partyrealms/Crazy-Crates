@@ -163,12 +163,8 @@ public class ItemBuilder {
             if (nbt.hasKey("Unbreakable")) {
                 itemBuilder.setUnbreakable(nbt.getBoolean("Unbreakable"));
             }
-            if (version.isNewer(Version.v1_12_R1)) {
-                if (itemMeta instanceof org.bukkit.inventory.meta.Damageable) {
-                    itemBuilder.setDamage(((org.bukkit.inventory.meta.Damageable) itemMeta).getDamage());
-                }
-            } else {
-                itemBuilder.setDamage(item.getDurability());
+            if (itemMeta instanceof org.bukkit.inventory.meta.Damageable) {
+                itemBuilder.setDamage(((org.bukkit.inventory.meta.Damageable) itemMeta).getDamage());
             }
         }
         return itemBuilder;
@@ -322,16 +318,6 @@ public class ItemBuilder {
         if (m != null) {// Sets the material.
             this.material = m;
             //1.9-1.12.2
-            if (version.isNewer(Version.v1_8_R3) && version.isOlder(Version.v1_13_R2)) {
-                if (m == Material.matchMaterial("MONSTER_EGG")) {
-                    try {
-                        this.entityType = EntityType.fromId(damage) != null ? EntityType.fromId(damage) : EntityType.valueOf(metaData);
-                    } catch (Exception ignore) {
-                    }
-                    this.damage = 0;
-                    this.isMobEgg = true;
-                }
-            }
         }
         switch (this.material.name()) {
             case "PLAYER_HEAD":
@@ -875,21 +861,9 @@ public class ItemBuilder {
             ItemMeta itemMeta = item.getItemMeta();
             itemMeta.setDisplayName(getUpdatedName());
             itemMeta.setLore(getUpdatedLore());
-            if (version.isSame(Version.v1_8_R3)) {
-                if (isHead && !isHash && player != null && !player.equals("")) {
-                    SkullMeta skullMeta = (SkullMeta) itemMeta;
-                    skullMeta.setOwner(player);
-                }
-            }
-            if (version.isNewer(Version.v1_10_R1)) {
-                itemMeta.setUnbreakable(unbreakable);
-            }
-            if (version.isNewer(Version.v1_12_R1)) {
-                if (itemMeta instanceof org.bukkit.inventory.meta.Damageable) {
-                    ((org.bukkit.inventory.meta.Damageable) itemMeta).setDamage(damage);
-                }
-            } else {
-                item.setDurability((short) damage);
+            itemMeta.setUnbreakable(unbreakable);
+            if (itemMeta instanceof org.bukkit.inventory.meta.Damageable) {
+                ((org.bukkit.inventory.meta.Damageable) itemMeta).setDamage(damage);
             }
             if (isPotion && (potionType != null || potionColor != null)) {
                 PotionMeta potionMeta = (PotionMeta) itemMeta;
@@ -925,19 +899,13 @@ public class ItemBuilder {
             addGlow(item);
             NBTItem nbt = new NBTItem(item);
             if (isHead) {
-                if (!isHash && player != null && !player.equals("") && version.isNewer(Version.v1_8_R3)) {
+                if (!isHash && player != null && !player.equals("")) {
                     nbt.setString("SkullOwner", player);
                 }
             }
             if (isMobEgg) {
                 if (entityType != null) {
                     nbt.addCompound("EntityTag").setString("id", "minecraft:" + entityType.name());
-                }
-            }
-            if (version.isOlder(Version.v1_11_R1)) {
-                if (unbreakable) {
-                    nbt.setBoolean("Unbreakable", true);
-                    nbt.setInteger("HideFlags", 4);
                 }
             }
             if (!crateName.isEmpty()) {
@@ -962,7 +930,7 @@ public class ItemBuilder {
     private final java.util.regex.Pattern HEX_PATTERN = java.util.regex.Pattern.compile("#[a-fA-F0-9]{6}");
     
     private String color(String message) {
-        if (Version.isNewer(Version.v1_15_R1)) {
+        if (Version.isSame(Version.v1_17_R1)) {
             Matcher matcher = HEX_PATTERN.matcher(message);
             StringBuffer buffer = new StringBuffer();
             while (matcher.find()) {
@@ -1109,7 +1077,7 @@ public class ItemBuilder {
         for (Enchantment enchantment : Enchantment.values()) {
             try {
                 //MC 1.13+ has the correct names.
-                if (version.isNewer(Version.v1_12_R1)) {
+                if (version.isSame(Version.v1_17_R1)) {
                     if (stripEnchantmentName(enchantment.getKey().getKey()).equalsIgnoreCase(enchantmentName)) {
                         return enchantment;
                     }

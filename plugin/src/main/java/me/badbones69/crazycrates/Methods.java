@@ -39,7 +39,7 @@ public class Methods {
     public final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
     
     public static String color(String message) {
-        if (Version.isNewer(Version.v1_15_R1)) {
+        if (Version.isSame(Version.v1_17_R1)) {
             Matcher matcher = HEX_PATTERN.matcher(message);
             StringBuffer buffer = new StringBuffer();
             while (matcher.find()) {
@@ -166,7 +166,7 @@ public class Methods {
     public static boolean isSimilar(Player player, Crate crate) {
         boolean check = isSimilar(cc.getNMSSupport().getItemInMainHand(player), crate);
         if (!check) {
-            if (Version.getCurrentVersion().isNewer(Version.v1_8_R3)) {
+            if (Version.getCurrentVersion().isSame(Version.v1_17_R1)) {
                 check = isSimilar(player.getEquipment().getItemInOffHand(), crate);
             }
         }
@@ -274,7 +274,7 @@ public class Methods {
         for (Enchantment enchantment : Enchantment.values()) {
             try {
                 //MC 1.13+ has the correct names.
-                if (Version.getCurrentVersion().isNewer(Version.v1_12_R1)) {
+                if (Version.getCurrentVersion().isSame(Version.v1_17_R1)) {
                     if (stripEnchantmentName(enchantment.getKey().getKey()).equalsIgnoreCase(enchantmentName)) {
                         return enchantment;
                     }

@@ -60,7 +60,7 @@ public class CrateControl implements Listener { //Crate Control
     public void onCrateOpen(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         FileConfiguration config = Files.CONFIG.getFile();
-        if (Version.getCurrentVersion().isNewer(Version.v1_8_R3) && e.getHand() == EquipmentSlot.OFF_HAND) {
+        if (Version.getCurrentVersion().isSame(Version.v1_17_R1) && e.getHand() == EquipmentSlot.OFF_HAND) {
             if (cc.isKey(player.getInventory().getItemInOffHand())) {
                 e.setCancelled(true);
                 player.updateInventory();
@@ -95,7 +95,7 @@ public class CrateControl implements Listener { //Crate Control
             //Checks if the item in their hand is a key and if so it stops them from right clicking with it.
             ItemStack key = cc.getNMSSupport().getItemInMainHand(player);
             boolean keyInHand = cc.isKey(key);
-            if (!keyInHand && Version.getCurrentVersion().isNewer(Version.v1_8_R3)) {
+            if (!keyInHand && Version.getCurrentVersion().isSame(Version.v1_17_R1)) {
                 keyInHand = cc.isKey(player.getEquipment().getItemInOffHand());
             }
             if (keyInHand) {

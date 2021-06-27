@@ -29,24 +29,10 @@ public class Main extends JavaPlugin implements Listener {
     
     @Override
     public void onEnable() {
-        if (Version.getCurrentVersion().isOlder(Version.v1_8_R3)) {// Disables plugin on unsupported versions
-            isEnabled = false;
-            System.out.println("============= Crazy Crates =============");
-            System.out.println(" ");
-            System.out.println("Plugin Disabled: This server is running on 1.8.3 or below and Crazy Crates does not support those versions. "
-            + "Please check the spigot page for more information about lower Minecraft versions.");
-            System.out.println(" ");
-            System.out.println("Plugin Page: https://www.spigotmc.org/resources/17599/");
-            System.out.println("Version Integer: " + Version.getCurrentVersion().getVersionInteger());
-            System.out.println(" ");
-            System.out.println("============= Crazy Crates =============");
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
-        }
         //Crate Files
-        String extention = Version.getCurrentVersion().isNewer(Version.v1_12_R1) ? "nbt" : "schematic";
-        String cratesFolder = Version.getCurrentVersion().isNewer(Version.v1_12_R1) ? "/Crates1.13-Up" : "/Crates1.12.2-Down";
-        String schemFolder = Version.getCurrentVersion().isNewer(Version.v1_12_R1) ? "/Schematics1.13-Up" : "/Schematics1.12.2-Down";
+        String extention = Version.getCurrentVersion().isSame(Version.v1_17_R1) ? "nbt" : "schematic";
+        String cratesFolder = Version.getCurrentVersion().isNewer(Version.v1_17_R1) ? "/Crates1.13-Up" : "/Crates1.12.2-Down";
+        String schemFolder = Version.getCurrentVersion().isNewer(Version.v1_17_R1) ? "/Schematics1.13-Up" : "/Schematics1.12.2-Down";
         fileManager.logInfo(true)
         .registerDefaultGenerateFiles("Basic.yml", "/Crates", cratesFolder)
         .registerDefaultGenerateFiles("Classic.yml", "/Crates", cratesFolder)
@@ -88,7 +74,7 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new QuickCrate(), this);
         pm.registerEvents(new CrateControl(), this);
         pm.registerEvents(new CrateOnTheGo(), this);
-        if (Version.getCurrentVersion().isNewer(Version.v1_11_R1)) {
+        if (Version.getCurrentVersion().isSame(Version.v1_17_R1)) {
             pm.registerEvents(new Events_v1_12_R1_Up(), this);
         } else {
             pm.registerEvents(new Events_v1_11_R1_Down(), this);
