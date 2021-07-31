@@ -73,7 +73,6 @@ public class Main extends JavaPlugin implements Listener {
         pm.registerEvents(new Roulette(), this);
         pm.registerEvents(new QuickCrate(), this);
         pm.registerEvents(new CrateControl(), this);
-        pm.registerEvents(new CrateOnTheGo(), this);
         if (Version.getCurrentVersion().isSame(Version.v1_17_R1)) {
             pm.registerEvents(new Events_v1_12_R1_Up(), this);
         } else {
